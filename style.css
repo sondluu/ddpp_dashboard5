@@ -1,0 +1,614 @@
+
+<style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      width: 100%;
+      height: 100%;
+      font-size: 50%;
+    }
+
+    body {
+      width: 200%;
+      height: 100%;
+      background-color: rgb(255, 255, 255);
+      padding: 1rem;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #app {
+      margin: 0 auto;
+      width: 100%;
+      max-width: 1600px;
+      height: auto;
+      border: 2px solid black; /*black frame*/
+      margin-bottom: 2rem;
+    }
+
+    .nav {
+      display: block;
+      height: 4rem;
+      background-color: #f4f4f4;  /*gray box for Doctore name on top*/
+      position: relative;
+    }
+
+    .doctor_name {
+    padding: 1rem;
+    }
+
+    .nav__links {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .link,
+    .link:active,
+    .link:visited,
+    .link:link {
+      color: black;
+      font-size: 1.6 rem;
+    }
+
+    .header {
+      display: block; /*Title dDPP provider dashboard */
+      height: 7vh;
+      padding: 0rem;
+/*       border: 2px solid black; */
+    }
+
+    /*  A NOTE ON VERTICAL ALIGNMENT WITHOUT FLEXBOX OR GRID: Notice, that if you have a position:absolute on a child element, the parent container  must have a position:relative  */
+    .header__info {   /*This is the big header dDPP Provider Dashboard */
+      display: block;
+      width: 50%;
+      height: 100%;
+      background-color: white; /*yellow*/
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .header__title {
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+.info {
+  font-size: 12px; /* demographic info*/
+}
+    .main {
+      margin-top: 2rem;
+      display: block;
+      height: 100%;
+      padding: 0rem 1rem 1rem 1rem;
+    }
+
+    .main_title {
+      text-align: center; /*this is the smaller Patient dDPP Data title*/
+    }
+
+    .main__articles {  /*not applied right now*/
+      display: block;
+      width: 600px;
+      height: 700px;
+      border: 1 px solid black;
+      margin: 0 auto;
+    }
+
+    .general {  /*the general info on top*/
+/*       display: inline-block;  */
+    }
+
+    .clearfix::after { /*not applied right now*/
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+
+    .article {
+      display: inline-block;
+/*       float: left; */
+      /* NOTE: we introduce a float:left and as a result, we need to add a clearfix to the parent container */
+      width: 90px;  /*this is data row*/
+      padding: 0.5rem;
+    }
+
+    .article__content {
+      width: 100%;
+      height: 100%;
+      background-color: #fffecd;
+      border: 0px solid black; 
+      padding: 0.7rem; //gap between pink blocks
+    }
+
+    .article__image {
+      width: 100%;
+      height: 100px;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .article__image--map {
+      background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Vancouver_by_Sentinel-2.jpg/1024px-Vancouver_by_Sentinel-2.jpg)
+    }
+
+    .article__image--city {
+      background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Concord_Pacific_Master_Plan_Area.jpg/1920px-Concord_Pacific_Master_Plan_Area.jpg)
+    }
+
+    .article__image--bridge {
+      background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Lions_Gate_Bridge_at_night.jpg/2560px-Lions_Gate_Bridge_at_night.jpg)
+    }
+
+    .article__image--mountains {
+      background-image: url(https://upload.wikimedia.org/wikipedia/commons/8/8e/UBC_aerial_view-cropped.jpg)
+    }
+
+.general {
+}
+
+.general_title {
+  font-size: 10px;
+}
+
+
+.overview {
+      display: inline-block;
+/*       float: left; */
+      /* NOTE: we introduce a float:left and as a result, we need to add a clearfix to the parent container */
+      width: 120px;
+      padding: 0.5rem;
+    }
+
+
+    #showArea {
+        background: white;
+        max-width: 600px;
+        padding: 20px;
+        margin: 0 auto;
+        border: px solid #000;
+
+    }
+
+/*  overall engagement score info */
+
+#engagement_overview {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+  font-size: 12px;
+/*   border: 2px solid #ddd; */
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+#engagement_overview th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  padding: 10px;
+/*   background-color: #f4f4f4; */
+  
+  color: black;
+  font-size: 16px;
+}
+
+#engagement_overview td {
+  border: 0px solid #ddd;
+  padding: 10px;
+  vertical-align: top;
+  height: 70px;
+  width: 100px;
+/*   line-height: 1px; */
+/*   border: 2px solid #ccc; */
+}
+
+
+
+/*  high-level ddpp info */
+
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 35%;
+  border: 0px solid #ddd;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+/*   background-color: #f4f4f4; */
+  color: black;
+}
+
+#customers td, #customers th {
+  border: 0px solid #ddd;
+  padding: 0px;
+}
+
+
+#customers th, .general_title {
+  font-size: 7px;
+}
+
+#customers td {
+  font-size: 12px;
+}
+
+
+
+/*  engagement data table */
+
+#engagement_data {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: 2px solid #ddd;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  verticle-align: top;
+}
+
+#engagement_data td, #engagement_data th {
+  width: 20rem;
+  height: 2rem;
+  border: 2px solid #ccc;
+  text-align: center;
+  font-size: 10px;
+}
+#engagement_data th {
+  background: white;
+  border-color: white;
+  border: 2px solid #ccc;
+}
+
+#engagement_data td {
+  font-size: 12px;
+}
+/* #engagement_data body {
+  padding:1rem;
+} */
+
+
+
+
+/*  overall weekly engagement data table */
+
+#overall_engagement {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: 0px solid #ddd;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+#overall_engagement td, #overall_engagement th {
+  width: 14rem;
+  height: 2rem;
+  border: px solid #ccc;
+  text-align: top;
+  font-size: 10px;
+}
+#overall_engagement th {
+  background: white;
+  border-color: white;
+}
+
+#overall_engagement td {
+  font-size: 10px;
+  text-align: center;
+}
+
+/*  overall weekly meals data table */
+
+#meals {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: 0px solid #ddd;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+#meals td, #meals th {
+  width: 14rem;
+  height: 2rem;
+  border: px solid #ccc;
+  text-align: top;
+  font-size: 10px;
+}
+#meals th {
+  background: white;
+  border-color: white;
+}
+
+#meals td {
+  font-size: 10px;
+  text-align: center;
+}
+
+
+
+/*  overall weekly steps data table */
+
+#steps {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: 0px solid #ddd;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+#steps td, #steps th {
+  width: 14rem;
+  height: 2rem;
+  border: px solid #ccc;
+  text-align: top;
+  font-size: 10px;
+}
+#steps th {
+  background: white;
+  border-color: white;
+}
+
+#steps td {
+  font-size: 10px;
+  text-align: center;
+}
+
+
+
+/*  overall weekly digital learning data table */
+
+#learning {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: 0px solid #ddd;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+#learning td, #learning th {
+  width: 14rem;
+  height: 2rem;
+  border: px solid #ccc;
+  text-align: top;
+  font-size: 10px;
+}
+#learning th {
+  background: white;
+  border-color: white;
+}
+
+#learning td {
+  font-size: 10px;
+  text-align: center;
+}
+
+
+/*  overall weekly weigh-in data table */
+
+#weighin {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: 0px solid #ddd;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+#weighin td, #weighin th {
+  width: 14rem;
+  height: 2rem;
+  border: px solid #ccc;
+  text-align: top;
+  font-size: 10px;
+}
+#weighin th {
+  background: white;
+  border-color: white;
+}
+
+#weighin td {
+  font-size: 10px;
+  text-align: center;
+}
+
+
+/*  overall weekly exercise data table */
+
+#exercise {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: 0px solid #ddd;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+#exercise td, #exercise th {
+  width: 14rem;
+  height: 2rem;
+  border: px solid #ccc;
+  text-align: top;
+  font-size: 10px;
+}
+#exercise th {
+  background: white;
+  border-color: white;
+}
+
+#exercise td {
+  font-size: 10px;
+  text-align: center;
+}
+
+
+/*  overall weekly coach messaging data table */
+
+#message {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: 0px solid #ddd;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+#message td, #message th {
+  width: 14rem;
+  height: 2rem;
+  border: px solid #ccc;
+  text-align: top;
+  font-size: 10px;
+}
+#message th {
+  background: white;
+  border-color: white;
+}
+
+#message td {
+  font-size: 10px;
+  text-align: center;
+}
+
+
+/*  overall weekly group chat table */
+
+#chat {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: 0px solid #ddd;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+#chat td, #chat th {
+  width: 14rem;
+  height: 2rem;
+  border: px solid #ccc;
+  text-align: top;
+  font-size: 10px;
+}
+#chat th {
+  background: white;
+  border-color: white;
+}
+
+#chat td {
+  font-size: 10px;
+  text-align: center;
+}
+
+
+
+#prompt {
+        /* color: white; */
+        font-size: 15px;
+    }
+
+    input {
+        margin:1px;
+        text-align: left;
+        padding: 5px;
+        font-size: 16px;
+    }
+
+    input[type=submit] {
+        padding: 70px;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    #showArea {
+        padding: 50px;
+    }
+
+
+.sms_title {
+  font-size: 10px;
+  margin-top: 50px;
+  
+}
+
+    .typeArea {
+/*         background-color: #f4f4f4; */
+/*         border-color: 1px solid #000;  /*not doing anything right now*/ */
+        padding: 20px; /*thickness around textbox*/
+/*         margin: 10px; white space between data row and the textbox */
+        display: flex;
+      
+      
+      width: 40%;
+      height: 140px;
+      padding: 1px 1px;
+      box-sizing: border-box;
+      border: 0.5px solid #ccc;
+      border-radius: 4px;
+      background-color: #ddd; /*color of frame of textbox*/
+      resize: none;
+      margin-top: 10px;
+    }
+
+    #sms-list {
+        min-height: 100px;
+    }
+
+    #sms-list>p {
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0 10px 0;
+        margin: 0;
+        font-size: 28px;
+    }
+
+    #toSend {
+        width: 100%;
+        font-size: 14px;
+        border: 0px solid #ccc
+    }
+
+    #submitBtn {
+        background-color: #f4f4f4; /*not affecting*/
+        border: none;
+        color: black;
+        padding: 10px 28px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 7px;
+/*         margin-left: 140px; /*pushing button to middle*/ */
+    }
+
+
+
+#algorithm_def {
+  background-color: #ddd;
+  padding: 14px;
+  width: 90%;
+  display: none;
+}
+  
+span:hover + #algorithm_def {
+  display: block;
+  width: 150%;
+  border-radius: 4px;
+}
+
+  </style>
+
+
